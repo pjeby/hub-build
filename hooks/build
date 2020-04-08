@@ -6,3 +6,7 @@ case $DOCKER_TAG in
 esac
 
 docker build ${PHP_VER+ --build-arg PHP_VER=$PHP_VER}${OS_VER+ --build-arg OS_VER=$OS_VER} -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
+
+for tag in ${DOCKER_TAG//,/ }; do
+	[[ $tag == "${IMAGE_NAME/##*:}" ]] || docker tag "$IMAGE_NAME" "${IMAGE_NAME%%:*}:$tag"
+done
