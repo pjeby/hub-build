@@ -1,0 +1,5 @@
+ARG PHP_VER=7.2.29
+ARG OS_VER=3.10
+FROM php:$PHP_VER-fpm-alpine$OS_VER
+
+ENV dummy
