@@ -7,23 +7,20 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ["7.1.33", "7.2.26", "7.3.13"]
     steps:
       - name: Calculate Tags
-        env:
-          ref1: ${{ github.ref}}
-          ref: 2.2.32-0.41.17
-          repo: ${{ github.repository }}
-        run: |
-          if [[ $ref == master ]]; then
-            tags=$repo:unstable
-          elif [[ $ref =~ ^([0-9.]+)-((([0-9]+[.])[0-9]+[.])([.][0-9+])*)  ]]; then
-            upstream=${BASH_REMATCH[1]}
-            minor=${BASH_REMATCH[3]}x
-            major=${BASH_REMATCH[4]}x
-            tags=$repo:latest,$repo:$ref,$repo:$upstream-$minor,$repo:$upstream-$major,$repo:upstream
-          else
-            echo "Bad tag: $ref"
-            exit 1
-          fi
-          echo "$tags"
-          echo "build_tags=$tags" >> $GITHUB_ENV
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ github.repository }}
+          sep-tags: ","
+          tags: |
+            type=semver,pattern={{version}},value=2.1.0
+            type=semver,pattern={{major}}.{{minor}},value=2.1.0
+            type=semver,pattern={{major}}.x,value=2.1.0
+          flavor: |
+            latest=true
+            prefix=${{ matrix.php }}-,onlatest=true
