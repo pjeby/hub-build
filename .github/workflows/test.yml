@@ -9,24 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ["7.1.33", "7.2.26", "7.3.13"]
+        include:
+          - php: "7.1.33"
+            os: "3.9"
+          - php: "7.2.26"
+            os: "3.9"
     steps:
       - name: Extract PHP Versions
         id: phpver
         uses: docker/metadata-action@v3
         with:
-          images: ${{ github.repository }}
-          sep-tags: ","
-          tags: |
-            type=semver,pattern={{major}}.{{minor}},value=${{ matrix.php }}
-          flavor: |
-            latest=false
+          tags: 'type=semver,pattern={{major}}.{{minor}},value=${{ matrix.php }}'
+          flavor: 'latest=false'
       - name: Calculate Tags
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ github.repository }}
-          sep-tags: ","
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
