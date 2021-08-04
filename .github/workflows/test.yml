@@ -28,9 +28,9 @@ jobs:
           images: ${{ github.repository }}
           sep-tags: ","
           tags: |
-            type=semver,pattern={{version}},value=2.1.0
-            type=semver,pattern={{major}}.{{minor}},value=2.1.0
-            type=semver,pattern={{major}}.x,value=2.1.0
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}.x
           flavor: |
             latest=true
             prefix=${{ matrix.php }}-,onlatest=true
