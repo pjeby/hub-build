@@ -20,7 +20,7 @@ jobs:
           tags: |
             type=semver,pattern={{major}}.{{minor}},value=${{ matrix.php }}
           flavor: |
-            latest=false      
+            latest=false
       - name: Calculate Tags
         id: meta
         uses: docker/metadata-action@v3
@@ -34,4 +34,4 @@ jobs:
           flavor: |
             latest=true
             prefix=${{ matrix.php }}-,onlatest=true
-            prefix=${{ steps.phpver.output.version }}-,onlatest=true
+            prefix=${{ steps.phpver.outputs.version }}-,onlatest=true
