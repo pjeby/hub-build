@@ -31,7 +31,8 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}.x
+            type=raw,value=unstable
           flavor: |
-            latest=true
+            latest=auto
             prefix=${{ matrix.php }}-,onlatest=true
             prefix=${{ steps.phpver.outputs.version }}-,onlatest=true
