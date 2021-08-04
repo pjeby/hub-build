@@ -34,4 +34,4 @@ jobs:
           flavor: |
             latest=true
             prefix=${{ matrix.php }}-,onlatest=true
-            prefix=${{ steps.phpver.output.tags }}-,onlatest=true
+            prefix=${{ steps.phpver.output.version }}-,onlatest=true
