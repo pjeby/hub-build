@@ -29,9 +29,9 @@ jobs:
         with:
           images: ${{ github.repository }}
           tags: |
-            type=semver,pattern={{version}},value=2.1.1
-            type=semver,pattern={{major}}.{{minor}},value=2.1.1
-            type=semver,pattern={{major}}.x,value=2.1.1
+            type=semver,pattern=-{{version}},value=2.1.1
+            type=semver,pattern=-{{major}}.{{minor}},value=2.1.1
+            type=semver,pattern=-{{major}}.x,value=2.1.1
             type=raw,value=
           flavor: |
             latest=false
