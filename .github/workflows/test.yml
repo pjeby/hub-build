@@ -11,7 +11,7 @@ jobs:
       - name: Calculate Tags
         env:
           ref1: ${{ github.ref}}
-          ref: 2.2.32-016.41.17
+          ref: 2.2.32-0.41.17
           repo: ${{ github.repository }}
         run: |
           if [[ $ref == master ]]; then
@@ -27,4 +27,3 @@ jobs:
           fi
           echo "$tags"
           echo "build_tags=$tags" >> $GITHUB_ENV
-          exit 1
