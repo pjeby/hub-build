@@ -19,6 +19,7 @@ jobs:
         id: phpver
         uses: docker/metadata-action@v3
         with:
+          images: ${{ github.repository }}
           tags: 'type=semver,pattern={{major}}.{{minor}},value=${{ matrix.php }}'
           flavor: 'latest=false'
       - name: Calculate Tags
