@@ -11,6 +11,16 @@ jobs:
       matrix:
         php: ["7.1.33", "7.2.26", "7.3.13"]
     steps:
+      - name: Extract PHP Versions
+        id: phpver
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ github.repository }}
+          sep-tags: ","
+          tags: |
+            type=semver,pattern={{major}}.{{minor}},value=${{ matrix.php }}
+          flavor: |
+            latest=false      
       - name: Calculate Tags
         id: meta
         uses: docker/metadata-action@v3
@@ -24,3 +34,4 @@ jobs:
           flavor: |
             latest=true
             prefix=${{ matrix.php }}-,onlatest=true
+            prefix=${{ steps.phpver.output.tags }}-,onlatest=true
